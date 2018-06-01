@@ -1,0 +1,58 @@
+version: "3"
+
+services:
+  sendbox:
+    build: ./sendbox
+    tty: true
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+      - SYS_PTRACE
+    security_opt:
+      - seccomp:unconfined
+      - apparmor:unconfined
+    networks:
+      sendnetwork:
+        ipv4_address: 10.0.10.10
+
+  rawserver:
+    build: ./rawserver
+    tty: true
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+      - SYS_PTRACE
+    security_opt:
+      - seccomp:unconfined
+      - apparmor:unconfined
+    networks:
+      sendnetwork:
+        ipv4_address: 10.0.10.20
+      recvnetwork:
+        ipv4_address: 10.0.11.10
+
+  recvbox:
+    build: ./recvbox
+    tty: true
+    cap_add:
+      - NET_ADMIN
+      - NET_RAW
+      - SYS_PTRACE
+    security_opt:
+      - seccomp:unconfined
+      - apparmor:unconfined
+    networks:
+      recvnetwork:
+        ipv4_address: 10.0.11.20
+
+networks:
+  sendnetwork:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.0.10.0/24
+  recvnetwork:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.0.11.0/24
