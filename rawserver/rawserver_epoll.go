@@ -89,19 +89,9 @@ func main() {
 				}
 			}()
 		case syscall.EAGAIN:
-			// ????
 			continue
 		default:
-			// UNKNOWN ERROR
 			// break
 		}
-
-		// fmt.Printf("Receive Packet: %02x\n", recvBuf[:n])
-
-		// go func() {
-		// 	if err := syscall.Sendto(sendFd, recvBuf[:n], 0, &sendAddr); err != nil {
-		// 		fmt.Println("Sendto:", err)
-		// 	}
-		// }()
 	}
 }
