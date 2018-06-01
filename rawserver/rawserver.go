@@ -65,7 +65,8 @@ func main() {
 		fmt.Println("\n===== syscall.Recvfrom() =====")
 		n, _, _ := syscall.Recvfrom(recvFd, recvBuf, 0)
 
-		fmt.Println("Receive Packet: ", recvBuf[:n])
+		fmt.Printf("Receive Packet: %02v", recvBuf[:n])
+
 		go func() {
 			if err := syscall.Sendto(sendFd, recvBuf[:n], 0, &sendAddr); err != nil {
 				fmt.Println("Sendto:", err)
