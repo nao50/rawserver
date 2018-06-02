@@ -37,10 +37,6 @@ services:
     cap_add:
       - NET_ADMIN
       - NET_RAW
-      - SYS_PTRACE
-    security_opt:
-      - seccomp:unconfined
-      - apparmor:unconfined
     networks:
       recvnetwork:
         ipv4_address: 10.0.11.20
